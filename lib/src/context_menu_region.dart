@@ -11,6 +11,7 @@ class ContextMenuRegion extends StatefulWidget {
     this.onItemSelected,
     this.onDismissed,
     this.menuOffset = Offset.zero,
+    this.buttons = kSecondaryMouseButton,
   }) : super(key: key);
 
   final Widget child;
@@ -18,6 +19,7 @@ class ContextMenuRegion extends StatefulWidget {
   final Offset menuOffset;
   final void Function(MenuItem item)? onItemSelected;
   final VoidCallback? onDismissed;
+  final int buttons;
 
   @override
   _ContextMenuRegionState createState() => _ContextMenuRegionState();
@@ -31,7 +33,7 @@ class _ContextMenuRegionState extends State<ContextMenuRegion> {
     return Listener(
       onPointerDown: (e) {
         shouldReact = e.kind == PointerDeviceKind.mouse &&
-            e.buttons == kSecondaryMouseButton;
+            e.buttons == widget.buttons;
       },
       onPointerUp: (e) async {
         if (!shouldReact) return;
